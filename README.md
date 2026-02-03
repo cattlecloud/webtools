@@ -13,7 +13,7 @@ go get cattlecloud.net/go/webtools@latest
 ```
 
 ```go
-go import "cattlecloud.net/go/webtools"
+import "cattlecloud.net/go/webtools"
 ```
 
 ### Package Contents
