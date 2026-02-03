@@ -1,0 +1,14 @@
+cattlecloud.net/go/scope v1.2.1 h1:kCiA2lE6/qdMXL56rT3ZjkjFH63rwJMq1fCarE2x1F0=
+cattlecloud.net/go/scope v1.2.1/go.mod h1:YGE0XO+qTS84e0nxPDA97WmiMxnjknMQ7WOUWYNzy9Y=
+github.com/golang-jwt/jwt/v5 v5.3.1 h1:kYf81DTWFe7t+1VvL7eS+jKFVWaUnK9cB1qbwn63YCY=
+github.com/golang-jwt/jwt/v5 v5.3.1/go.mod h1:fxCRLWMO43lRc8nhHWY6LGqRcf+1gQWArsqaEUEa5bE=
+github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
+github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
+github.com/hashicorp/go-set/v3 v3.0.1 h1:ZwO15ZYmIrFYL9zSm2wBuwcRiHxVdp46m/XA/MUlM6I=
+github.com/hashicorp/go-set/v3 v3.0.1/go.mod h1:0oPQqhtitglZeT2ZiWnRIfUG6gJAHnn7LzrS7SbgNY4=
+github.com/mileusna/useragent v1.3.5 h1:SJM5NzBmh/hO+4LGeATKpaEX9+b4vcGg2qXGLiNGDws=
+github.com/mileusna/useragent v1.3.5/go.mod h1:3d8TOmwL/5I8pJjyVDteHtgDGcefrFUX4ccGOMKNYYc=
+github.com/shoenig/go-conceal v0.5.4 h1:xLzarDUw3vUJjz+DirzO58yijkX4I9F1KA+RPZMLGLY=
+github.com/shoenig/go-conceal v0.5.4/go.mod h1:LXmjZn/bO1Nrtvfex4VNbKViVE+aMhVvskZx8o7HBfs=
+github.com/shoenig/test v1.12.2 h1:ZVT8NeIUwGWpZcKaepPmFMoNQ3sVpxvqUh/MAqwFiJI=
+github.com/shoenig/test v1.12.2/go.mod h1:UxJ6u/x2v/TNs/LoLxBNJRV9DiwBBKYxXSyczsBHFoI=
