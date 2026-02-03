@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+  - package-ecosystem: "gomod"
+    directories:
+      - "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+
