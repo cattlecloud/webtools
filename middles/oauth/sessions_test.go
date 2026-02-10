@@ -29,15 +29,12 @@ func TestSessions_Create(t *testing.T) {
 
 	cache := &mockCache{storage: make(map[string]Identity)}
 
-	// initialize the cookie factory
-	sessions := &Sessions{
-		Cache: cache,
-		CookieFactory: &CookieFactory{
-			Name:   "session-token",
-			Secure: true,
-			Clock:  testNow,
-		},
-	}
+	// initialize the sessions manager with the cache and a cookie factory
+	sessions := NewSessions(&CookieFactory{
+		Name:   "session-token",
+		Secure: true,
+		Clock:  testNow,
+	}, cache)
 
 	id := Identity(12345)
 	ttl := 1 * time.Hour
@@ -66,8 +63,9 @@ func TestSessions_Create(t *testing.T) {
 func TestSessions_Match(t *testing.T) {
 	t.Parallel()
 
+	cookies := (*CookieFactory)(nil)
 	cache := &mockCache{storage: make(map[string]Identity)}
-	sessions := NewSessions(cache)
+	sessions := NewSessions(cookies, cache)
 
 	id := Identity(12345)
 	token := conceal.UUIDv4()

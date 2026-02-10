@@ -32,9 +32,12 @@ type Sessions struct {
 	CookieFactory *CookieFactory
 }
 
-func NewSessions(cache Cache[*conceal.Text, Identity]) *Sessions {
+// NewSessions creates a new Sessions for managing sessions and cookies
+// associated with those sessions.
+func NewSessions(cookies *CookieFactory, cache Cache[*conceal.Text, Identity]) *Sessions {
 	return &Sessions{
-		Cache: cache,
+		Cache:         cache,
+		CookieFactory: cookies,
 	}
 }
 
