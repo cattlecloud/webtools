@@ -16,10 +16,12 @@ func testNow() time.Time {
 
 const testUser = 12345
 
+type rowid uint // example of Unique type
+
 func TestCookieFactory_Create_NameAndPath(t *testing.T) {
 	t.Parallel()
 
-	cf := &CookieFactory{
+	cf := &CookieFactory[rowid]{
 		Name:  "session-id",
 		Clock: testNow,
 	}
@@ -34,7 +36,7 @@ func TestCookieFactory_Create_NameAndPath(t *testing.T) {
 func TestCookieFactory_Create_Expiration(t *testing.T) {
 	t.Parallel()
 
-	cf := &CookieFactory{
+	cf := &CookieFactory[rowid]{
 		Clock: testNow,
 	}
 
@@ -48,7 +50,7 @@ func TestCookieFactory_Create_Expiration(t *testing.T) {
 func TestCookieFactory_Create_SecureFlag(t *testing.T) {
 	t.Parallel()
 
-	cf := &CookieFactory{
+	cf := &CookieFactory[rowid]{
 		Clock:  testNow,
 		Secure: true,
 	}
@@ -61,7 +63,7 @@ func TestCookieFactory_Create_SecureFlag(t *testing.T) {
 func TestCookieFactory_Create_ValueEncoding(t *testing.T) {
 	t.Parallel()
 
-	cf := &CookieFactory{
+	cf := &CookieFactory[rowid]{
 		Clock: testNow,
 	}
 
@@ -71,7 +73,7 @@ func TestCookieFactory_Create_ValueEncoding(t *testing.T) {
 	decoded, err := base64.StdEncoding.DecodeString(cookie.Value)
 	must.NoError(t, err)
 
-	var content CookieContent
+	var content CookieContent[rowid]
 	jerr := json.Unmarshal(decoded, &content)
 	must.NoError(t, jerr)
 
