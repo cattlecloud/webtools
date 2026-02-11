@@ -25,30 +25,34 @@ type Cache[K, T any] interface {
 	Put(K, T, time.Duration)
 }
 
-type Identity int64
+// Unique is a unique number assigned to each user that can be associated
+// with any number of sessions. Typically a ROWID number from a database.
+type Unique interface {
+	~int | ~int64 | ~uint | ~uint64
+}
 
-type Sessions struct {
-	Cache         Cache[*conceal.Text, Identity]
-	CookieFactory *CookieFactory
+type Sessions[U Unique] struct {
+	Cache         Cache[*conceal.Text, U]
+	CookieFactory *CookieFactory[U]
 }
 
 // NewSessions creates a new Sessions for managing sessions and cookies
 // associated with those sessions.
-func NewSessions(cookies *CookieFactory, cache Cache[*conceal.Text, Identity]) *Sessions {
-	return &Sessions{
+func NewSessions[U Unique](cookies *CookieFactory[U], cache Cache[*conceal.Text, U]) *Sessions[U] {
+	return &Sessions[U]{
 		Cache:         cache,
 		CookieFactory: cookies,
 	}
 }
 
-func (s *Sessions) Create(id Identity, ttl time.Duration) *http.Cookie {
+func (s *Sessions[U]) Create(id U, ttl time.Duration) *http.Cookie {
 	token := conceal.UUIDv4()
 	cookie := s.CookieFactory.Create(id, token, ttl)
 	s.Cache.Put(token, id, ttl)
 	return cookie
 }
 
-func (s *Sessions) Match(id Identity, token *conceal.Text) error {
+func (s *Sessions[U]) Match(id U, token *conceal.Text) error {
 	actual, exists := s.Cache.Get(token)
 
 	switch {

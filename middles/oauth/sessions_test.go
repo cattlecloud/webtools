@@ -12,31 +12,31 @@ import (
 
 // mockCache provides an in-memory implementation of the Cache interface
 type mockCache struct {
-	storage map[string]Identity
+	storage map[string]rowid
 }
 
-func (m *mockCache) Get(k *conceal.Text) (Identity, bool) {
+func (m *mockCache) Get(k *conceal.Text) (rowid, bool) {
 	id, ok := m.storage[k.Unveil()]
 	return id, ok
 }
 
-func (m *mockCache) Put(k *conceal.Text, v Identity, _ time.Duration) {
+func (m *mockCache) Put(k *conceal.Text, v rowid, _ time.Duration) {
 	m.storage[k.Unveil()] = v
 }
 
 func TestSessions_Create(t *testing.T) {
 	t.Parallel()
 
-	cache := &mockCache{storage: make(map[string]Identity)}
+	cache := &mockCache{storage: make(map[string]rowid)}
 
 	// initialize the sessions manager with the cache and a cookie factory
-	sessions := NewSessions(&CookieFactory{
+	sessions := NewSessions(&CookieFactory[rowid]{
 		Name:   "session-token",
 		Secure: true,
 		Clock:  testNow,
 	}, cache)
 
-	id := Identity(12345)
+	id := rowid(12345)
 	ttl := 1 * time.Hour
 
 	cookie := sessions.Create(id, ttl)
@@ -50,7 +50,7 @@ func TestSessions_Create(t *testing.T) {
 	must.NoError(t, berr)
 
 	// unamrshal the json value content
-	cc := new(CookieContent)
+	cc := new(CookieContent[rowid])
 	jerr := json.Unmarshal(b, cc)
 	must.NoError(t, jerr)
 
@@ -63,11 +63,11 @@ func TestSessions_Create(t *testing.T) {
 func TestSessions_Match(t *testing.T) {
 	t.Parallel()
 
-	cookies := (*CookieFactory)(nil)
-	cache := &mockCache{storage: make(map[string]Identity)}
+	cookies := (*CookieFactory[rowid])(nil)
+	cache := &mockCache{storage: make(map[string]rowid)}
 	sessions := NewSessions(cookies, cache)
 
-	id := Identity(12345)
+	id := rowid(12345)
 	token := conceal.UUIDv4()
 
 	// seed the cache with a known session
@@ -85,7 +85,7 @@ func TestSessions_Match(t *testing.T) {
 	})
 
 	t.Run("match not a match", func(t *testing.T) {
-		wrongID := Identity(99999)
+		wrongID := rowid(99999)
 		err := sessions.Match(wrongID, token)
 		must.ErrorIs(t, err, ErrNotMatch)
 	})

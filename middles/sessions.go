@@ -21,10 +21,10 @@ type Sessions[I identity.UserIdentity] interface {
 //
 // If on session is found, an implementation of identity.UserSession where
 // .Active() always returns false is returned, indicating there is no session.
-func GetSession(r *http.Request) identity.UserSession[identity.UserIdentity] {
-	value, ok := r.Context().Value(sessionContextKey).(identity.UserSession[identity.UserIdentity])
+func GetSession[I identity.UserIdentity](r *http.Request) identity.UserSession[I] {
+	value, ok := r.Context().Value(sessionContextKey).(identity.UserSession[I])
 	if !ok {
-		return &session[identity.UserIdentity]{
+		return &session[I]{
 			active: false,
 		}
 	}
@@ -79,6 +79,7 @@ func (ss *SetSession[D, I]) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	live := &session[I]{id: data.Identity(), active: true}
 	ctx2 := context.WithValue(r.Context(), sessionContextKey, live)
 	r2 := r.WithContext(ctx2)
+
 	ss.Next.ServeHTTP(w, r2)
 }
 
