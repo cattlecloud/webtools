@@ -11,6 +11,8 @@ import (
 // Origin contins request origination context from parsing request headers.
 type Origin struct {
 	Method    string
+	Host      string
+	Forward   string
 	Reference string
 	UserAgent useragent.UserAgent
 }
@@ -48,15 +50,22 @@ func (o *Origin) String() string {
 // Origins parses the request headers to get information about the origins of
 // the request, including ...
 //
+// - Method
+// - Host
+// - Forwarder
 // - Referer
 // - User-Agent
 func Origins(r *http.Request) *Origin {
 	method := strings.ToUpper(r.Method)
+	host := r.Host
+	forward := r.Header.Get("X-Forwarded-For")
 	reference := r.Header.Get("Referer")
 	agent := r.Header.Get("User-Agent")
 	ua := useragent.Parse(agent)
 	return &Origin{
 		Method:    method,
+		Host:      host,
+		Forward:   forward,
 		Reference: reference,
 		UserAgent: ua,
 	}
