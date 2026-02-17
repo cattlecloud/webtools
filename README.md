@@ -72,6 +72,15 @@ type Sessions[I identity.UserIdentity] interface {
 }
 ```
 
+#### package webtools/httpclient
+
+Provides a sharable `http.Client` that sets sensible values for maintaining a
+pool of idle connections.
+
+```go
+client := httpclient.Get()
+```
+
 #### package webtools/middles/identity
 
 Provides a set of generic structs used for marshaling identity. The interfaces
