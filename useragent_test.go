@@ -12,6 +12,29 @@ import (
 func TestOrigin_From(t *testing.T) {
 	t.Parallel()
 
+	t.Run("forward set", func(t *testing.T) {
+		o := &Origin{
+			Host:    "10.0.0.1",
+			Forward: "example.com",
+		}
+
+		s := o.From()
+		must.Eq(t, "example.com", s)
+	})
+
+	t.Run("not set", func(t *testing.T) {
+		o := &Origin{
+			Host: "10.0.0.1",
+		}
+
+		s := o.From()
+		must.Eq(t, "10.0.0.1", s)
+	})
+}
+
+func TestOrigin_Anchor(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name      string
 		reference string
@@ -26,7 +49,7 @@ func TestOrigin_From(t *testing.T) {
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			o := &Origin{Reference: tc.reference}
-			must.Eq(t, tc.exp, o.From())
+			must.Eq(t, tc.exp, o.Anchor())
 		})
 	}
 }
