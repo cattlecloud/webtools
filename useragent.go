@@ -17,9 +17,18 @@ type Origin struct {
 	UserAgent useragent.UserAgent
 }
 
-// From returns a parsed version of the Referer headers, including the domain
-// and path without the protocol or query.
+// From returns the value of the X-Forwarded-For if set, otherwise defaulting
+// to the Host header.
 func (o *Origin) From() string {
+	if o.Forward != "" {
+		return o.Forward
+	}
+	return o.Host
+}
+
+// Anchor returns a parsed version of the Referer headers, including the domain
+// and path without the protocol or query.
+func (o *Origin) Anchor() string {
 	if o.Reference == "" {
 		return "-"
 	}

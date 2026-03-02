@@ -59,6 +59,18 @@ u := webtools.CreateURL("example.org", "/some/path", map[string]string {
 })
 ```
 
+There is also the `Origins` convenience function for parsing the user-agent
+of an `http.Request` and creating a struct of interesting values regarding the
+request.
+
+```go
+ua := webtools.Origins(r)
+
+fmt.Println(ua.String()) # e.g. curl/unknown
+fmt.Println(ua.Anchor()) # e.g. example.org/path/to/page
+fmt.Println(ua.From())   # e.g. 10.0.0.1
+```
+
 #### package webtools/middles
 
 Provides a generic sessions `http.Handler` which can be used to set and validate
