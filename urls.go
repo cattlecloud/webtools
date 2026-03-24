@@ -24,3 +24,14 @@ func CreateURL(origin, path string, params map[string]string) *url.URL {
 	u.RawQuery = query.Encode()
 	return u
 }
+
+// GetDomain extracts the domain name from a given url s.
+//
+// If s is not a valid url, the empty string is returned.
+func GetDomain(s string) string {
+	u, uerr := url.Parse(s)
+	if uerr != nil {
+		return ""
+	}
+	return u.Host
+}
