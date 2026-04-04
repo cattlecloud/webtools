@@ -81,7 +81,7 @@ func TestOrigins(t *testing.T) {
 	t.Parallel()
 
 	agent := "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
-	r := httptest.NewRequest(http.MethodPost, "https://example.org/v1/data", nil)
+	r := httptest.NewRequestWithContext(t.Context(), http.MethodPost, "https://example.org/v1/data", nil)
 	r.Header.Set("X-Forwarded-For", "10.1.1.1")
 	r.Header.Set("Referer", "https://dashboard.example.org/home")
 	r.Header.Set("User-Agent", agent)

@@ -1,6 +1,6 @@
 module cattlecloud.net/go/webtools
 
-go 1.25
+go 1.26
 
 require (
 	cattlecloud.net/go/scope v1.2.1
