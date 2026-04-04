@@ -2,7 +2,7 @@ set shell := ["bash", "-u", "-c"]
 
 export scripts := ".github/workflows/scripts"
 export GOBIN := `echo $PWD/.bin`
-export GOTOOLCHAIN := 'go1.25.6'
+export GOTOOLCHAIN := 'go1.26.1'
 
 # show available commands
 [private]
@@ -25,13 +25,6 @@ tests:
 test unit:
     go test -v -count=1 -race -run {{unit}} 2>/dev/null
 
-# ensure copywrite headers present on source files
-[group('lint')]
-copywrite:
-    $GOBIN/copywrite \
-        --config {{scripts}}/copywrite.hcl headers \
-        --spdx "BSD-3-Clause"
-
 # apply go vet command on source tree
 [group('lint')]
 vet:
@@ -50,6 +43,4 @@ lint: vet
 # locally install build dependencies
 [group('build')]
 init:
-    go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.8.0
-    go install github.com/hashicorp/copywrite@v0.24.0
-
+    go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.11.4
