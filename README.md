@@ -1,5 +1,9 @@
 # webtools
 
+[![Go Reference](https://pkg.go.dev/badge/cattlecloud.net/go/webtools.svg)](https://pkg.go.dev/cattlecloud.net/go/webtools)
+[![License](https://img.shields.io/github/license/cattlecloud/webtools?color=7C00D8&style=flat-square&label=License)](https://github.com/cattlecloud/webtools/blob/main/LICENSE)
+[![Build](https://img.shields.io/github/actions/workflow/status/cattlecloud/webtools/ci.yaml?style=flat-square&color=0FAA07&label=Tests)](https://github.com/cattlecloud/webtools/actions/workflows/ci.yaml)
+
 Package webtools is a collection of helper functions, types, and abstractions
 for building standalone websites. In particular, sites that make use of oauth
 based sessions for user identity and authentication.
