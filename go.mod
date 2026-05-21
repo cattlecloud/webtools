@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/go-set/v3 v3.0.1
 	github.com/mileusna/useragent v1.3.5
 	github.com/shoenig/go-conceal v0.5.4
-	github.com/shoenig/test v1.12.2
+	github.com/shoenig/test v1.13.2
 )
 
-require github.com/google/go-cmp v0.6.0 // indirect
+require github.com/google/go-cmp v0.7.0 // indirect
