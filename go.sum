@@ -8,7 +8,7 @@ github.com/hashicorp/go-set/v3 v3.0.1 h1:ZwO15ZYmIrFYL9zSm2wBuwcRiHxVdp46m/XA/MU
 github.com/hashicorp/go-set/v3 v3.0.1/go.mod h1:0oPQqhtitglZeT2ZiWnRIfUG6gJAHnn7LzrS7SbgNY4=
 github.com/mileusna/useragent v1.3.5 h1:SJM5NzBmh/hO+4LGeATKpaEX9+b4vcGg2qXGLiNGDws=
 github.com/mileusna/useragent v1.3.5/go.mod h1:3d8TOmwL/5I8pJjyVDteHtgDGcefrFUX4ccGOMKNYYc=
-github.com/shoenig/go-conceal v0.5.4 h1:xLzarDUw3vUJjz+DirzO58yijkX4I9F1KA+RPZMLGLY=
-github.com/shoenig/go-conceal v0.5.4/go.mod h1:LXmjZn/bO1Nrtvfex4VNbKViVE+aMhVvskZx8o7HBfs=
+github.com/shoenig/go-conceal v0.5.6 h1:K2j8Ql6U4YrBxCRaNF/AnuYaeG8dmf2HcApc7nEdmpk=
+github.com/shoenig/go-conceal v0.5.6/go.mod h1:rP6ts7GI3lTWQu0gZBWN/aLR1YrdqvrAZbT8cxzxd2A=
 github.com/shoenig/test v1.13.2 h1:SaGxHxg7xkRuKuNtuFmHf0LgNGaAgcBT7HN4WHCKfqU=
 github.com/shoenig/test v1.13.2/go.mod h1:MKmiRyEeuFl8y9PCoThaRDgYQZeWBhRQlH99poXz5LI=
