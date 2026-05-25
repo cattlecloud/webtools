@@ -39,7 +39,7 @@ func TestText_Write(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			text := &Text{Content: tc.content}
+			text := &Text[string]{Content: tc.content}
 			var sb strings.Builder
 			must.NoError(t, text.Write(&sb))
 			must.Eq(t, tc.want, sb.String())
