@@ -15,6 +15,7 @@ type MIMEType string
 
 const (
 	ContentTypeText MIMEType = "text/plain; charset=utf8"
+	ContentTypeHTML MIMEType = "text/html; charset=utf-8"
 	ContentTypeXML  MIMEType = "text/xml; charset=utf8"
 	ContentTypeRSS  MIMEType = "application/rss+xml; charset=utf8"
 )
