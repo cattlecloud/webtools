@@ -2,7 +2,6 @@ set shell := ["bash", "-u", "-c"]
 
 export scripts := ".github/workflows/scripts"
 export GOBIN := `echo $PWD/.bin`
-export GOTOOLCHAIN := 'go1.26.1'
 
 # show available commands
 [private]

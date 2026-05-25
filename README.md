@@ -75,6 +75,78 @@ fmt.Println(ua.Anchor()) # e.g. example.org/path/to/page
 fmt.Println(ua.From())   # e.g. 10.0.0.1
 ```
 
+#### package webtools/htmx
+
+Provides utilities for building HTMX-compatible responses. The package includes an `Interface` for rendering HTMX responses, along with support for plain text, raw HTML, and templated content.
+
+##### Response interfaces
+
+```go
+type Interface interface {
+    Write(io.Writer) error
+}
+```
+
+##### Rendering responses
+
+```go
+htmx.Write(
+		w, // any io.Writer; typically http.ResponseWriter
+    htmx.Text{Content: "Hello, World!"},
+)
+```
+
+##### Using templates
+
+```go
+//go:embed templates/*
+var templates embed.FS
+
+tmplFS := htmx.FS(templates, "templates")
+
+http.HandleFunc("GET /partial", func(w http.ResponseWriter, r *http.Request) {
+    htmx.Write(w, &htmx.Template{
+        FS:       tmplFS,
+        Filename: "button.html",
+        Fields:   data,
+    })
+})
+```
+
+##### Inline templates with Component
+
+Use `Component` for rendering raw HTML templates defined inline:
+
+```go
+html := `<button hx-post="/click">{{ .Count }} clicks</button>`
+
+htmx.Write(w, &htmx.Component{
+    HTML:   html,
+    Fields: struct{ Count int }{Count: 42},
+})
+```
+
+##### Client-side redirects
+
+Use `SetRedirect` instead of `http.Redirect` when handling HTMX requests to perform a client-side redirect:
+
+```go
+func handler(w http.ResponseWriter, r *http.Request) {
+    htmx.SetRedirect(w, "/new-page")
+}
+```
+
+##### Preventing swap
+
+Use `SetNoSwap` to keep existing content in place after a HTMX transition. Useful for setting error messages on forms:
+
+```go
+func errorHandler(w http.ResponseWriter, err error) {
+    htmx.SetNoSwap(w)
+    htmx.Write(w, htmx.Text{Content: err.Error()})
+}
+```
+
 #### package webtools/middles
 
 Provides a generic sessions `http.Handler` which can be used to set and validate
