@@ -16,7 +16,7 @@ func TestCache_ServeHTTP_local(t *testing.T) {
 	run := new(atomic.Bool)
 	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
-			Environment: runtime.Local,
+			Environment: "local",
 			Domain:      "example.com",
 		}),
 		H: http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
@@ -39,7 +39,7 @@ func TestCache_ServeHTTP_staging_css(t *testing.T) {
 	run := new(atomic.Bool)
 	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
-			Environment: runtime.Staging,
+			Environment: "staging",
 			Domain:      "example.com",
 		}),
 		H: http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
@@ -62,7 +62,7 @@ func TestCache_ServeHTTP_staging_txt(t *testing.T) {
 	run := new(atomic.Bool)
 	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
-			Environment: runtime.Staging,
+			Environment: "staging",
 			Domain:      "example.com",
 		}),
 		H: http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
@@ -85,7 +85,7 @@ func TestCache_ServeHTTP_production_css(t *testing.T) {
 	run := new(atomic.Bool)
 	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
-			Environment: runtime.Production,
+			Environment: "production",
 			Domain:      "example.com",
 		}),
 		H: http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
@@ -108,7 +108,7 @@ func TestCache_ServeHTTP_production_txt(t *testing.T) {
 	run := new(atomic.Bool)
 	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
-			Environment: runtime.Production,
+			Environment: "production",
 			Domain:      "example.com",
 		}),
 		H: http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
