@@ -18,7 +18,7 @@ type CacheHTTP struct {
 func (c *CacheHTTP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var ttl time.Duration
 
-	switch c.Env.String() {
+	switch c.Env.Get() {
 	case runtime.Local:
 		ttl = 5 * time.Second
 

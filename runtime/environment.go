@@ -12,25 +12,32 @@ import (
 // LocalPort is the normal port used for local development.
 var LocalPort = 3000
 
+// Platform is one of "local", "staging", or "production".
+type Platform string
+
 func Setup(c *Config) Environment {
 	return Environment{
 		domain:      c.Domain,
-		environment: c.Environment,
+		environment: Platform(c.Environment),
 	}
 }
 
 type Environment struct {
 	domain      string
-	environment string
+	environment Platform
 }
 
 const (
-	Local      = "local"
-	Staging    = "staging"
-	Production = "production"
+	Local      Platform = "local"
+	Staging    Platform = "staging"
+	Production Platform = "production"
 )
 
 func (e Environment) String() string {
+	return string(e.Get())
+}
+
+func (e Environment) Get() Platform {
 	return e.environment
 }
 
