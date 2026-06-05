@@ -10,12 +10,12 @@ import (
 	"github.com/shoenig/lang"
 )
 
-type Cache struct {
+type CacheHTTP struct {
 	Env runtime.Environment
 	H   http.Handler
 }
 
-func (c *Cache) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (c *CacheHTTP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var ttl time.Duration
 
 	switch c.Env.String() {

@@ -14,7 +14,7 @@ func TestCache_ServeHTTP_local(t *testing.T) {
 	t.Parallel()
 
 	run := new(atomic.Bool)
-	c := &Cache{
+	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
 			Environment: runtime.Local,
 			Domain:      "example.com",
@@ -37,7 +37,7 @@ func TestCache_ServeHTTP_staging_css(t *testing.T) {
 	t.Parallel()
 
 	run := new(atomic.Bool)
-	c := &Cache{
+	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
 			Environment: runtime.Staging,
 			Domain:      "example.com",
@@ -60,7 +60,7 @@ func TestCache_ServeHTTP_staging_txt(t *testing.T) {
 	t.Parallel()
 
 	run := new(atomic.Bool)
-	c := &Cache{
+	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
 			Environment: runtime.Staging,
 			Domain:      "example.com",
@@ -83,7 +83,7 @@ func TestCache_ServeHTTP_production_css(t *testing.T) {
 	t.Parallel()
 
 	run := new(atomic.Bool)
-	c := &Cache{
+	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
 			Environment: runtime.Production,
 			Domain:      "example.com",
@@ -106,7 +106,7 @@ func TestCache_ServeHTTP_production_txt(t *testing.T) {
 	t.Parallel()
 
 	run := new(atomic.Bool)
-	c := &Cache{
+	c := &CacheHTTP{
 		Env: runtime.Setup(&runtime.Config{
 			Environment: runtime.Production,
 			Domain:      "example.com",
