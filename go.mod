@@ -14,5 +14,5 @@ require (
 
 require (
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/shoenig/lang v0.0.7 // indirect
+	github.com/shoenig/lang v0.0.8 // indirect
 )

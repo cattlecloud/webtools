@@ -14,5 +14,7 @@ github.com/shoenig/go-conceal v0.5.6 h1:K2j8Ql6U4YrBxCRaNF/AnuYaeG8dmf2HcApc7nEd
 github.com/shoenig/go-conceal v0.5.6/go.mod h1:rP6ts7GI3lTWQu0gZBWN/aLR1YrdqvrAZbT8cxzxd2A=
 github.com/shoenig/lang v0.0.7 h1:0F7/U1ria0edQPYf0e4zX+hJ2Wxo4UPss2fydWkqvCw=
 github.com/shoenig/lang v0.0.7/go.mod h1:DStvcG5yPYr/xBBcTEaousm+Pqjn9ozAKfyqWwfhj34=
+github.com/shoenig/lang v0.0.8 h1:A6WIzjO8T9rCSVueLIzLj+cHw2Lzm01NEI3x8Oyu9e0=
+github.com/shoenig/lang v0.0.8/go.mod h1:u515SaQYHQgukwYa8K6wftsmSh5aWGxJvSi4zjazNfI=
 github.com/shoenig/test v1.13.2 h1:SaGxHxg7xkRuKuNtuFmHf0LgNGaAgcBT7HN4WHCKfqU=
 github.com/shoenig/test v1.13.2/go.mod h1:MKmiRyEeuFl8y9PCoThaRDgYQZeWBhRQlH99poXz5LI=
