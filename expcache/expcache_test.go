@@ -132,4 +132,9 @@ func TestCache_GetMap(t *testing.T) {
 	must.MapLen(t, 2, results2)
 	must.Eq(t, Maybe[int]{Usable: false}, results["two"])
 	must.Eq(t, Maybe[int]{Usable: false}, results["four"])
+
+	// request non-existent
+	results3 := c.GetMap("nine")
+	must.MapLen(t, 1, results3)
+	must.False(t, results3["nine"].Usable)
 }

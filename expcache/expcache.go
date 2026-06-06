@@ -119,7 +119,7 @@ func (c *Cache[T]) GetMap(keys ...string) map[string]Maybe[T] {
 				expired := now.After(value.B)
 				m[key] = Maybe[T]{Item: value.A, Usable: !expired}
 			} else {
-				m[key] = Maybe[T]{Item: value.A, Usable: false}
+				m[key] = Maybe[T]{Usable: false}
 			}
 		}
 	})
