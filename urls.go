@@ -35,3 +35,41 @@ func GetDomain(s string) string {
 	}
 	return u.Host
 }
+
+// Sanitize purges known tracker URL parameters.
+//
+// If s fails to parse as a url, the original string is returned.
+func Sanitize(s string) string {
+	u, err := url.Parse(s)
+	if err != nil || u == nil {
+		return s // leave as-is
+	}
+
+	query := u.Query()
+
+	parameters := []string{
+		// urchin tracking module
+		"utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+		"utm_social_handle_id", "utm_id", "utm_source_platform",
+		"utm_creative_format", "utm_marketing_tactic",
+
+		// socials
+		"soc_src", "soc_trk",
+
+		// ad clicks
+		"gclid", "fbclid", "msclkid", "ttclid", "twclid", "dclid", "yclid",
+
+		// mailers
+		"mc_cid", "mc_eid", "_hsenc", "mkt_tok", "_kx", "_hsmi",
+
+		// guce
+		"guccounter", "guce_referrer", "guce_referrer_sig",
+	}
+
+	for _, parameter := range parameters {
+		query.Del(parameter)
+	}
+
+	u.RawQuery = query.Encode()
+	return u.String()
+}
