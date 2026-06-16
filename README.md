@@ -51,6 +51,15 @@ webtools.SetCacheControl(w, 24 * time.Hour)
 webtools.SetBasicAuth(w, "admin", "passw0rd")
 ```
 
+##### sanitize a url
+
+Use `Sanitize` to remove known trackers from URL parameters.
+
+```go
+u := webtools.Sanitize("https://example.org?utm_source=abc123&page=1")
+// utm_source=abc123 is removed from the url
+```
+
 Also helps with crafting `net/url.URL` values with correctly encoded URL
 paramter values.
 
