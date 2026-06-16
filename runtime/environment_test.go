@@ -72,4 +72,10 @@ func TestEnvironment_Canonical(t *testing.T) {
 		result := e.Canonical("")
 		must.Eq(t, result, "https://example.com")
 	})
+
+	t.Run("format", func(t *testing.T) {
+		e := Setup(&Config{Environment: "production", Domain: "example.com"})
+		result := e.Canonical("/about/%s/%d", "content", 42)
+		must.Eq(t, result, "https://example.com/about/content/42")
+	})
 }

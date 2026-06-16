@@ -58,25 +58,26 @@ func (e Environment) Validate() error {
 	}
 }
 
-func (e Environment) Canonical(page string) template.URL {
-	page = strings.TrimPrefix(page, "/")
+func (e Environment) Canonical(urlpath string, args ...any) template.URL {
+	s := fmt.Sprintf(urlpath, args...)
+	p := strings.TrimPrefix(s, "/")
 
-	var canonical string
+	var c string
 
 	switch e.environment {
 	case Production:
-		canonical = "https://" + e.domain + "/" + page
+		c = "https://" + e.domain + "/" + p
 	case Staging:
-		canonical = "https://stage." + e.domain + "/" + page
+		c = "https://stage." + e.domain + "/" + p
 	default:
-		canonical = "http://localhost:" + strconv.Itoa(LocalPort) + "/" + page
+		c = "http://localhost:" + strconv.Itoa(LocalPort) + "/" + p
 	}
 
-	canonical = strings.TrimSuffix(canonical, "/")
+	canonical := strings.TrimSuffix(c, "/")
 
 	u, err := url.Parse(canonical)
 	if err != nil {
-		panic(fmt.Sprintf("runtime: unable to create url for page %q", page))
+		panic(fmt.Sprintf("runtime: unable to create url for page %q", urlpath))
 	}
 	clean := u.String()
 
