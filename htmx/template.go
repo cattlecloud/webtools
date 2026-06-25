@@ -34,7 +34,7 @@ func (t *Template) Write(w io.Writer) error {
 	root := template.New("htmx-root").Funcs(t.Funcs)
 	tree, terr := root.ParseFS(t.FS, filepath.Base(t.Filename))
 	if terr != nil {
-		return terr
+		return fmt.Errorf("unable to parse filesystem: %w", terr)
 	}
 
 	x := tree.Lookup(strings.TrimSuffix(filepath.Base(t.Filename), ".html"))
@@ -44,7 +44,7 @@ func (t *Template) Write(w io.Writer) error {
 
 	xerr := x.Execute(w, t.Fields)
 	if xerr != nil {
-		return fmt.Errorf("unable to execute %q", t.Filename)
+		return fmt.Errorf("unable to execute %q: %w", t.Filename, xerr)
 	}
 
 	return nil
