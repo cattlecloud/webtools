@@ -15,7 +15,7 @@ func Test_SetCacheControl(t *testing.T) {
 
 	w := httptest.NewRecorder()
 	SetCacheControl(w, 4*time.Minute)
-	must.Eq(t, "private, max-age=240", w.Header().Get("Cache-Control"))
+	must.Eq(t, "public, max-age=240", w.Header().Get("Cache-Control"))
 }
 
 func Test_SetContentType(t *testing.T) {
