@@ -48,7 +48,7 @@ func SetRobotsTag(w http.ResponseWriter, instruction RobotIndex) {
 func SetCacheControl(w http.ResponseWriter, ttl time.Duration) {
 	f := ttl.Seconds()
 	i := int(f)
-	s := "private, max-age=" + strconv.Itoa(i)
+	s := "public, max-age=" + strconv.Itoa(i)
 	w.Header().Add("Cache-Control", s)
 }
 

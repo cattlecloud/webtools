@@ -30,7 +30,7 @@ func TestCache_ServeHTTP_local(t *testing.T) {
 
 	must.Eq(t, 200, w.Code)
 	must.True(t, run.Load())
-	must.Eq(t, "private, max-age=5", w.Header().Get("Cache-Control"))
+	must.Eq(t, "public, max-age=5", w.Header().Get("Cache-Control"))
 }
 
 func TestCache_ServeHTTP_staging_css(t *testing.T) {
@@ -53,7 +53,7 @@ func TestCache_ServeHTTP_staging_css(t *testing.T) {
 
 	must.Eq(t, 200, w.Code)
 	must.True(t, run.Load())
-	must.Eq(t, "private, max-age=60", w.Header().Get("Cache-Control"))
+	must.Eq(t, "public, max-age=60", w.Header().Get("Cache-Control"))
 }
 
 func TestCache_ServeHTTP_staging_txt(t *testing.T) {
@@ -76,7 +76,7 @@ func TestCache_ServeHTTP_staging_txt(t *testing.T) {
 
 	must.Eq(t, 200, w.Code)
 	must.True(t, run.Load())
-	must.Eq(t, "private, max-age=3600", w.Header().Get("Cache-Control"))
+	must.Eq(t, "public, max-age=3600", w.Header().Get("Cache-Control"))
 }
 
 func TestCache_ServeHTTP_production_css(t *testing.T) {
@@ -99,7 +99,7 @@ func TestCache_ServeHTTP_production_css(t *testing.T) {
 
 	must.Eq(t, 200, w.Code)
 	must.True(t, run.Load())
-	must.Eq(t, "private, max-age=10800", w.Header().Get("Cache-Control"))
+	must.Eq(t, "public, max-age=10800", w.Header().Get("Cache-Control"))
 }
 
 func TestCache_ServeHTTP_production_txt(t *testing.T) {
@@ -122,5 +122,5 @@ func TestCache_ServeHTTP_production_txt(t *testing.T) {
 
 	must.Eq(t, 200, w.Code)
 	must.True(t, run.Load())
-	must.Eq(t, "private, max-age=86400", w.Header().Get("Cache-Control"))
+	must.Eq(t, "public, max-age=86400", w.Header().Get("Cache-Control"))
 }
