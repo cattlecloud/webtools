@@ -10,20 +10,24 @@ import (
 
 // Origin contins request origination context from parsing request headers.
 type Origin struct {
+	// about the request
 	Method    string
 	Host      string
+	UserAgent useragent.UserAgent
+
+	// about the requesting entity
+	Remote    string
 	Forward   string
 	Reference string
-	UserAgent useragent.UserAgent
 }
 
 // From returns the value of the X-Forwarded-For if set, otherwise defaulting
-// to the Host header.
+// to the Remote address.
 func (o *Origin) From() string {
 	if o.Forward != "" {
 		return o.Forward
 	}
-	return o.Host
+	return o.Remote
 }
 
 // Anchor returns a parsed version of the Referer headers, including the domain
@@ -67,6 +71,7 @@ func (o *Origin) String() string {
 func Origins(r *http.Request) *Origin {
 	method := strings.ToUpper(r.Method)
 	host := r.Host
+	remote := r.RemoteAddr
 	forward := r.Header.Get("X-Forwarded-For")
 	reference := r.Header.Get("Referer")
 	agent := r.Header.Get("User-Agent")
@@ -74,8 +79,9 @@ func Origins(r *http.Request) *Origin {
 	return &Origin{
 		Method:    method,
 		Host:      host,
-		Forward:   forward,
-		Reference: reference,
 		UserAgent: ua,
+		Forward:   forward,
+		Remote:    remote,
+		Reference: reference,
 	}
 }
