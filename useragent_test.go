@@ -14,21 +14,23 @@ func TestOrigin_From(t *testing.T) {
 
 	t.Run("forward set", func(t *testing.T) {
 		o := &Origin{
-			Host:    "10.0.0.1",
-			Forward: "example.com",
-		}
-
-		s := o.From()
-		must.Eq(t, "example.com", s)
-	})
-
-	t.Run("not set", func(t *testing.T) {
-		o := &Origin{
-			Host: "10.0.0.1",
+			Host:    "example.com",
+			Forward: "10.0.0.1",
+			Remote:  "100.100.1.1",
 		}
 
 		s := o.From()
 		must.Eq(t, "10.0.0.1", s)
+	})
+
+	t.Run("not set", func(t *testing.T) {
+		o := &Origin{
+			Host:   "example.com",
+			Remote: "100.100.1.1",
+		}
+
+		s := o.From()
+		must.Eq(t, "100.100.1.1", s)
 	})
 }
 
