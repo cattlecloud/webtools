@@ -84,6 +84,50 @@ fmt.Println(ua.Anchor()) # e.g. example.org/path/to/page
 fmt.Println(ua.From())   # e.g. 10.0.0.1
 ```
 
+##### Origin headers
+
+The `From()` method returns the originating client IP. The address is
+parsed from HTTP headers at construction time (`Origins()`) using the
+following precedence:
+
+1. `Forwarded` (RFC 7239) — the leftmost usable `for=` parameter. Surrounding
+   double-quotes are stripped, and any port is stripped. Redacted tokens
+   (`unknown`, `_hidden`, and any value beginning with `_`) are treated as
+   missing and cause a fall-through.
+2. `X-Forwarded-For` — the leftmost comma-separated entry with any port
+   stripped.
+3. `X-Real-IP` — common nginx convention, with any port stripped.
+4. `RemoteAddr` — the host portion of the TCP source address, via
+   `net.SplitHostPort`.
+
+Regardless of which source produced the value:
+
+- Ports are always stripped (IPv4 `:port`, bracketed IPv6 `[::1]:port`,
+  bare hostnames `:port`).
+- The leftmost entry is always returned. Each proxy along the chain appends
+  to the right, so the leftmost value is the one nearest the originating
+  client.
+- Redacted `Forwarded` tokens (`for=unknown`, `for=_hidden`) are silently
+  dropped so callers transparently fall back to the next source rather
+  than logging an opaque placeholder.
+
+In all three header layouts below `From()` returns the same value for the
+same originating client:
+
+```go
+// 1. RFC 7239 Forwarded header
+r.Header.Set("Forwarded", "for=192.0.2.43;proto=https")
+// From() -> 192.0.2.43
+
+// 2. Legacy X-Forwarded-For (most common in practice)
+r.Header.Set("X-Forwarded-For", "192.0.2.43, 10.0.0.5, proxy.example.com")
+// From() -> 192.0.2.43   (leftmost = originating client)
+
+// 3. nginx-style X-Real-IP, or nothing at all
+r.Header.Set("X-Real-IP", "192.0.2.43")
+// From() -> 192.0.2.43
+```
+
 #### package webtools/htmx
 
 Provides utilities for building HTMX-compatible responses. The package includes an `Interface` for rendering HTMX responses, along with support for plain text, raw HTML, and templated content.

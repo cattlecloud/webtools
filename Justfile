@@ -42,4 +42,4 @@ lint: vet
 # locally install build dependencies
 [group('build')]
 init:
-    go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.11.4
+    go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.14.0
