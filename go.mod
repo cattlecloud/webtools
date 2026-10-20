@@ -1,6 +1,6 @@
 module cattlecloud.net/go/webtools
 
-go 1.26
+go 1.27
 
 require (
 	cattlecloud.net/go/forms v1.1.0
