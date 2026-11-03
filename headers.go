@@ -27,6 +27,14 @@ func SetContentType(w http.ResponseWriter, filetype MIMEType) {
 	w.Header().Add("Content-Type", string(filetype))
 }
 
+// SetAttachment sets the Content-Disposition header on w to the given
+// filename string. Use this in conjunction with SetContentType to create
+// a downloadable file in an HTTP response.
+func SetAttachment(w http.ResponseWriter, filename string) {
+	value := fmt.Sprintf("attachment; filename=%q", filename)
+	w.Header().Set("Content-Disposition", value)
+}
+
 // RobotIndex are correct sentinel values for indicating whether a page
 // should be indexed, as set in the X-Robots-Tag HTTP response header.
 //
