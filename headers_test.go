@@ -26,6 +26,14 @@ func Test_SetContentType(t *testing.T) {
 	must.Eq(t, "text/plain; charset=utf8", w.Header().Get("Content-Type"))
 }
 
+func Test_SetAttachment(t *testing.T) {
+	t.Parallel()
+
+	w := httptest.NewRecorder()
+	SetAttachment(w, "note.txt")
+	must.Eq(t, `attachment; filename="note.txt"`, w.Header().Get("Content-Disposition"))
+}
+
 func Test_SetBasicAuth(t *testing.T) {
 	t.Parallel()
 

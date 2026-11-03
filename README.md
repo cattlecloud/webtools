@@ -33,6 +33,11 @@ including:
 webtools.SetContentType(w, webtools.ContentTypeRSS)
 ```
 
+- `Content-Disposition`
+```go
+webtools.SetAttachment(w, "note.txt")
+```
+
 - `X-Robots-Tag`
 
 ```go
