@@ -69,3 +69,26 @@ func TestVolatileCache_Put(t *testing.T) {
 		must.Eq(t, 2, val)
 	})
 }
+
+func TestVolatileCache_Delete(t *testing.T) {
+	t.Parallel()
+
+	t.Run("existing key", func(t *testing.T) {
+		vc := NewVolatileCache[string](size)
+		vc.Put("key-1", "hello", 1*time.Minute)
+
+		err := vc.Delete("key-1")
+		must.NoError(t, err)
+
+		val, ok := vc.Get("key-1")
+		must.False(t, ok)
+		must.Eq(t, "", val)
+	})
+
+	t.Run("missing key", func(t *testing.T) {
+		vc := NewVolatileCache[string](size)
+
+		err := vc.Delete("non-existent")
+		must.NoError(t, err)
+	})
+}

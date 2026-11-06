@@ -12,8 +12,14 @@ import (
 )
 
 type Sessions[I identity.UserIdentity] interface {
+	// Create a new session for the given identity and ttl.
 	Create(I, time.Duration) *http.Cookie
+
+	// Match asserts the given token is associated with the user identity.
 	Match(I, *conceal.Text) error
+
+	// Delete terminates the session of the given token.
+	Delete(*conceal.Text) error
 }
 
 // GetSession extracts the user session out of the http.Request, which will
@@ -76,7 +82,7 @@ func (ss *SetSession[D, I]) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// we found a matching token; we can allow the session
-	live := &session[I]{id: data.Identity(), active: true}
+	live := &session[I]{id: data.Identity(), token: data.Token(), active: true}
 	ctx2 := context.WithValue(r.Context(), sessionContextKey, live)
 	r2 := r.WithContext(ctx2)
 
@@ -87,6 +93,7 @@ func (ss *SetSession[D, I]) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // allowing an identity based session to be recognized as active or not.
 type session[I identity.UserIdentity] struct {
 	id     I
+	token  *conceal.Text
 	active bool
 }
 
@@ -96,6 +103,10 @@ func (s *session[I]) Identity() I {
 
 func (s *session[I]) Active() bool {
 	return s.active
+}
+
+func (s *session[I]) Token() *conceal.Text {
+	return s.token
 }
 
 func fromBase64(s string) string {

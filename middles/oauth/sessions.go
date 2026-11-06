@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	// ErrNotFound indidcates no oauth session was found in the request context.
+	// ErrNotFound indidcates no such session was found in the request context.
 	ErrNotFound = errors.New("session: not found")
 
 	// ErrNotMatch indicates the stored session does not match the session from
@@ -23,6 +23,7 @@ var (
 type Cache[K, T any] interface {
 	Get(K) (T, bool)
 	Put(K, T, time.Duration)
+	Delete(K) error
 }
 
 // Unique is a unique number assigned to each user that can be associated
@@ -63,4 +64,8 @@ func (s *Sessions[U]) Match(id U, token *conceal.Text) error {
 	default:
 		return nil
 	}
+}
+
+func (s *Sessions[U]) Delete(token *conceal.Text) error {
+	return s.Cache.Delete(token)
 }

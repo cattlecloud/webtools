@@ -70,3 +70,11 @@ func (vc *VolatileCache[T]) Put(path string, value T, ttl time.Duration) {
 		value:      value,
 	}
 }
+
+func (vc *VolatileCache[T]) Delete(path string) error {
+	vc.lock.Lock()
+	defer vc.lock.Unlock()
+
+	delete(vc.data, path)
+	return nil
+}
