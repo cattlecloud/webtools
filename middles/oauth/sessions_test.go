@@ -24,6 +24,11 @@ func (m *mockCache) Put(k *conceal.Text, v rowid, _ time.Duration) {
 	m.storage[k.Unveil()] = v
 }
 
+func (m *mockCache) Delete(k *conceal.Text) error {
+	delete(m.storage, k.Unveil())
+	return nil
+}
+
 func TestSessions_Create(t *testing.T) {
 	t.Parallel()
 
@@ -89,4 +94,23 @@ func TestSessions_Match(t *testing.T) {
 		err := sessions.Match(wrongID, token)
 		must.ErrorIs(t, err, ErrNotMatch)
 	})
+}
+
+func TestSessions_Delete(t *testing.T) {
+	t.Parallel()
+
+	cookies := (*CookieFactory[rowid])(nil)
+	cache := &mockCache{storage: make(map[string]rowid)}
+	sessions := NewSessions(cookies, cache)
+
+	id := rowid(12345)
+	token := conceal.UUIDv4()
+	cache.Put(token, id, 1*time.Hour)
+
+	err := sessions.Delete(token)
+	must.NoError(t, err)
+
+	// the session must no longer exist
+	err = sessions.Match(id, token)
+	must.ErrorIs(t, err, ErrNotFound)
 }
