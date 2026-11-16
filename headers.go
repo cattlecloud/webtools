@@ -18,6 +18,7 @@ const (
 	ContentTypeHTML MIMEType = "text/html; charset=utf-8"
 	ContentTypeXML  MIMEType = "text/xml; charset=utf8"
 	ContentTypeRSS  MIMEType = "application/rss+xml; charset=utf8"
+	ContentTypeTOML MIMEType = "application/toml; charset=utf8"
 	ContentTypeJSON MIMEType = "application/json" // implicit utf8 charset
 )
 
